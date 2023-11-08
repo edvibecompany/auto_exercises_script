@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
+import os
 
 #login locators and selections
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -17,7 +18,8 @@ password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
 choose = '1' # '1' - учитель, '2' - школа
 course_name = 'Auto exercises' # Название для курса, при желании можно менять
 section_name_in_course = 'Auto exercises test' # Название для раздела с уроком
-path_to_files = 'C:/Users/Ardmorto/PycharmProjects/exercises/materials/' #Путь до папки с материалами, теперь через простые слэши
+path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../auto_exercises_script/materials/')) #Путь до папки с материалами
+#Для запуска на win придется добавить двойные слэши к названиям картинок, увы и ах
 ######################################################################################
 
 urls = {
@@ -73,7 +75,7 @@ create_course_button = ".ui-button-loading-base"
 
 #New course actions
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, new_course_button))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}course_avatar.jpg')
+driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\course_avatar.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_avatar_button))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, course_name_field))).send_keys(course_name)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, description_course_field))).send_keys('Auto exercises test description')
@@ -119,7 +121,7 @@ save_section_button = ".ui-button-loading-base" #css
 
 #Create custom section actions
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, create_new_course_section_button))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}section_avatar.jpg')
+driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\section_avatar.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_section_avatar_button))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_name_field))).send_keys(section_name_in_course)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tags_menu))).click()
@@ -151,7 +153,7 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, sav
 #Create new lesson (Тут юзаются в большинстве своем те же локаторы, что и при создании раздела, переименовывать не стала)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".list-item-info-container"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-lesson-cont-title"))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}lesson_avatar.jpg')
+driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\lesson_avatar.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_section_avatar_button))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_name_field))).send_keys(section_name_in_course)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".cke_textarea_inline"))).send_keys('Default auto description LolKek')
@@ -221,7 +223,7 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@cl
 #1 Picture
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='block-container']/div[@class='block-exercise pointer']/div[contains(.,'Изображения')]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='modal-window show']//div[@class='exercise-block-images']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Auto picture exercise')
-driver.find_element(By.XPATH, "//div[@class='file-input border8px']/input[@class='file-input-field']").send_keys(f'{path_to_files}picture_test.jpeg')
+driver.find_element(By.XPATH, "//div[@class='file-input border8px']/input[@class='file-input-field']").send_keys(f'{path_to_files}\picture_test.jpeg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Описание']"))).send_keys('Typical picture description')
 statistics_manual()
 WebDriverWait(driver, 30).until(EC.invisibility_of_element_located((By.XPATH, exercise_modal)))
@@ -232,7 +234,7 @@ time.sleep(1)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".add_new_exercise"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='block-container']/div[@class='block-exercise pointer']/div[contains(.,'GIF анимация')]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='modal-window show']//div[@class='exercise-block-images']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Auto gif exercise')
-driver.find_element(By.XPATH, "//div[@class='file-input border8px hidden-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}gif_test.gif')
+driver.find_element(By.XPATH, "//div[@class='file-input border8px hidden-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}\gif_test.gif')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Описание']"))).send_keys('Take some rest')
 statistics_manual()
 WebDriverWait(driver, 30).until(EC.invisibility_of_element_located((By.XPATH, exercise_modal)))
@@ -292,7 +294,7 @@ time.sleep(1)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".add_new_exercise"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='block-container']/div[@class='block-exercise pointer']/div[contains(.,'Статья, сочинение или текст')]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='exercise-topic']//div[@class='exercise-title']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Article auto test')
-driver.find_element(By.XPATH, "//div[@class='file-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}for_article.jpeg')
+driver.find_element(By.XPATH, "//div[@class='file-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}\for_article.jpeg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='wrapper modal crop-modal width-auto']//span[.='Создать']"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Введите заголовок']"))).send_keys('Article auto test header')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='editor-input-wrapper text-title-editor']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys(text_for_exercize6)
@@ -307,7 +309,7 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@cl
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='images-type-dropdown type-dropdown']/div[@class='selected-type']/div[@class='type-option-description']"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='type-options visible']/div[@class='type-box']/div[contains(.,'Поле ввода, в котором ученик может написать текст. Вы можете добавить заголовок')]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='exercise-topic']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Composition auto test')
-driver.find_element(By.XPATH, "//div[@class='file-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}for_composition.jpeg')
+driver.find_element(By.XPATH, "//div[@class='file-input']/input[@class='file-input-field']").send_keys(f'{path_to_files}\for_composition.jpeg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='wrapper modal crop-modal width-auto']//span[.='Создать']"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Введите заголовок']"))).send_keys('Composition auto test header')
 statistics_manual()
@@ -359,15 +361,15 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@cl
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='editor-input-wrapper']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Auto pictures-words')
 #1 picture
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='option-word add-word']//div[@class='input-expandable']"))).send_keys('Duck')
-driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}duck.jpg')
+driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}\duck.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='wrapper modal crop-modal width-auto']//span[.='Создать']"))).click()
 #2 picture
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='option-word add-word']//div[@class='input-expandable']"))).send_keys('Frog')
-driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}frog.jpg')
+driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}\frog.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='wrapper modal crop-modal width-auto']//span[.='Создать']"))).click()
 #3 picture
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='option-word add-word']//div[@class='input-expandable']"))).send_keys('Bird')
-driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}bird.jpg')
+driver.find_element(By.XPATH, "//div[@class='file-input border8px left']/input[@class='file-input-field']").send_keys(f'{path_to_files}\bird.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='wrapper modal crop-modal width-auto']//span[.='Создать']"))).click()
 statistics_mistakes()
 WebDriverWait(driver, 30).until(EC.invisibility_of_element_located((By.XPATH, exercise_modal)))

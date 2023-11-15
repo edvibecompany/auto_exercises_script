@@ -13,9 +13,9 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
-login = 'test.qa.edvibe@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
+login = 'test.qa.shool@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
 password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
-choose = '1' # '1' - учитель, '2' - школа
+choose = '2' # '1' - учитель, '2' - школа
 course_name = 'Auto exercises' # Название для курса, при желании можно менять
 section_name_in_course = 'Auto exercises test' # Название для раздела с уроком
 path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../auto_exercises_script/materials/')) #Путь до папки с материалами
@@ -74,6 +74,7 @@ main_type_tag = "//div[@class='ui-options active multiselect']//div[@class='desi
 create_course_button = ".ui-button-loading-base"
 
 #New course actions
+time.sleep(3)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, new_course_button))).click()
 driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\course_avatar.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_avatar_button))).click()
@@ -97,7 +98,10 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cre
 #Delet old section
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".box-icon[data-v-57321723]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='list-item-info-container-menu']//div[@class='box-icon icon-vertical-more']"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']"))).click() #//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']
+try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']"))).click() #//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']
+except:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='box-dropdown center default open advent']//span[.='Удалить']"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='item-button col ml-5 mr--1']/div[@class='ui-button-base default']"))).click()
 time.sleep(1)
 
@@ -265,7 +269,7 @@ WebDriverWait(driver, 30).until(EC.invisibility_of_element_located((By.XPATH, ex
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 time.sleep(1)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".add_new_exercise"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='block-container']/div[@class='block-exercise pointer']/div[contains(.,'Тест')]"))).click()
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='block-container']//div[@class='block-exercise-title']/div[contains(.,'Тест')]"))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='exercise-test']//div[@class='cke_textarea_inline cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']"))).send_keys('Test auto')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".add-answer-button"))).click() #Добавляем третий вариант ответа
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -339,6 +343,7 @@ WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".t
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ai-audio-generator-wrapper']/div[@class='ui-button-base default']"))).click()
 time.sleep(10)
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='audio-box']//input[@class='form-control white']"))).send_keys('Audio test name')
+time.sleep(2)
 statistics_manual()
 WebDriverWait(driver, 30).until(EC.invisibility_of_element_located((By.XPATH, exercise_modal)))
 

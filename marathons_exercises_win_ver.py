@@ -13,11 +13,11 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
-login = 'test.qa.edvibe@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
+login = 'test.qa.shool@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
 password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
-choose = '1' # '1' - учитель, '2' - школа
-course_name = 'Auto exercises' # Название для курса, при желании можно менять
-section_name_in_course = 'Auto exercises test' # Название для раздела с уроком
+choose = '2' # '1' - учитель, '2' - школа
+#marathon_name = 'Marathon auto exercises' # Название для курса, при желании можно менять
+#marathon_name_in_course = 'Auto exercises test' # Название для раздела с уроком
 path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../exercises/materials/')) #Путь до папки с материалами
 #Для запуска на win придется добавить двойные слэши к названиям картинок, увы и ах
 ######################################################################################
@@ -31,9 +31,9 @@ urls = {
 login_field = "//input[@name='Email']"
 password_field = "//input[@name='Password']"
 acc_options = {'1': '//button[.="Teacher\'s account"]',
-              'teahcer_material_url': 'TeacherAccount/materials/personal',
+              'teahcer_marathon_url': 'TeacherAccount/marathon/marathons',
               '2': '//button[.="Online school"]',
-              'school_material_url': 'school/courses/personal'}
+              'school_marathon_url': 'school/marathons'}
 login_button = '.button'
 exercise_modal = "//div[@class='modal-window show']"
 
@@ -50,144 +50,61 @@ except:
 time.sleep(3)
 
 if choose == '1':
-    driver.get(f'{urls[stage]}{acc_options["teahcer_material_url"]}')
+    driver.get(f'{urls[stage]}{acc_options["teahcer_marathon_url"]}')
 else:
-    print(f'{urls[stage]}{acc_options["school_material_url"]}')
-    driver.get(f'{urls[stage]}{acc_options["school_material_url"]}')
-
-#New course locators
-new_course_button = '.create-item-btn-title'
-course_avatar_button = "//div[@class='change-image-upload']/div[@class='ui-button-base gray']"
-save_avatar_button = "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"
-course_name_field = "[placeholder='Введите название']"
-description_course_field = ".cke_textarea_inline"
-language_course_menu = ".ui-select"
-select_english = "//span[.='English']"
-sections_enable = ".ui-toggle-switcher"
-tags_menu = "//span[.='Теги']"
-tags_age_filter = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите возраст')]"
-adult_age_tag = "//div[@class='ui-options active multiselect']//div[@class='tag last']//div[@class='box-text option-name black']"
-tags_level_filter = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите уровень')]"
-intermediate_level_tag = "//div[@class='ui-options active multiselect']/div[@class='options']//div[4]//div[@class='box-text option-name black']"
-tags_type_filter = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите тип')]"
-main_type_tag = "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Общий')]"
-create_course_button = ".ui-button-loading-base"
-
-#New course actions
+    driver.get(f'{urls[stage]}{acc_options["school_marathon_url"]}')
 time.sleep(3)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, new_course_button))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\\course_avatar.jpg')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_avatar_button))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, course_name_field))).send_keys(course_name)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, description_course_field))).send_keys('Auto exercises test description')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, language_course_menu))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, select_english))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, sections_enable))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_menu))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_age_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, adult_age_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_age_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_level_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, intermediate_level_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_level_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_type_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, main_type_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, tags_type_filter))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, create_course_button))).click()
 
-#Delet old section
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".box-icon[data-v-57321723]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='list-item-info-container-menu']//div[@class='box-icon icon-vertical-more']"))).click()
-try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']"))).click() #//div[@class='box-dropdown center default animation-up open advent']//span[.='Удалить']
-except:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='box-dropdown center default open advent']//span[.='Удалить']"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='item-button col ml-5 mr--1']/div[@class='ui-button-base default']"))).click()
-time.sleep(1)
+#Создание нового марафона
+if choose == '1':
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-item-btn-title"))).click()
+    driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_avatar.jpg')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon exercises")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row dropdown-language-container no-gutters']//div[@class='ui-select']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Русский']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-button-loading-base default']"))).click()
 
-#Create custom section locators
-course_xpath = f"//div[.='{course_name}']" #На всякий пускай лежит тут, дабы можно было обращаться к курсу по имени из общего списка
-create_new_course_section_button = ".create-course-cont-title" #css
-load_section_avatar_button = "//div[@class='change-image-upload']/div[@class='ui-button-base gray']" #xpath
-save_section_avatar_button = "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"
-section_name_field = "[placeholder='Введите название']" #css
-section_tags_menu = "//span[.='Теги']" #xpath
-section_tag_age = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите возраст')]" #xpath
-section_tag_level = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите уровень')]" #xpath
-section_tag_type = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите тип')]" #xpath
-section_tag_skill = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите навык')]" #xpath
-section_tag_time = "//div[@class='material-tag-tab']//div[@class='ui-dropdown']/div[1]/div[contains(.,'Выберите время')]" #xpath
-section_field_grammar = ".material-tag-tab > div:nth-of-type(6) textarea:nth-of-type(1)" #css
-section_field_vocabulary = ".material-tag-tab > div:nth-of-type(7) textarea:nth-of-type(1)" #css
-section_field_functions = ".material-tag-tab > div:nth-of-type(8) textarea:nth-of-type(1)" #css
-section_field_other = ".material-tag-tab > div:nth-of-type(9) textarea:nth-of-type(1)" #css
-save_section_button = ".ui-button-loading-base" #css
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='container-box-sizing box-label-input container no-gutters pt-5 pb-5']/div[@class='row no-gutters align-items-center']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='container-box-sizing box-label-input box-label-translation container no-gutters pt-5 pb-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-auto order-2']/div[@class='ui-button-base default']"))).click()
 
-#Create custom section actions
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, create_new_course_section_button))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\\section_avatar.jpg')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_section_avatar_button))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_name_field))).send_keys(section_name_in_course)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tags_menu))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, adult_age_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, intermediate_level_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, main_type_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Говорение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Чтение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Аудирование')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='tag last']//div[@class='box-text option-name black']"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_grammar))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_vocabulary))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_functions))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_other))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'60 минут')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, save_section_button))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Уроки']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='modal-window show']//div[@class='design-grid']/div[@class='ui-button-base gray']"))).click()
+    driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_lesson.jpg')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название урока']"))).send_keys("Auto marathon exercises lesson")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".ui-button-loading-base"))).click()
+else:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-item-btn-title"))).click()
+    driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_avatar.jpg')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon exercises")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row dropdown-language-container no-gutters']//div[@class='ui-select']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Русский']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-auto order-2']/div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row container-teachers no-gutters']//div[@class='scroll-content']/div[1]//span[@class='point']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".ui-button-loading-base"))).click()
 
-#Create new lesson (Тут юзаются в большинстве своем те же локаторы, что и при создании раздела, переименовывать не стала)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".list-item-info-container"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-lesson-cont-title"))).click()
-driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\\lesson_avatar.jpg')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_section_avatar_button))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_name_field))).send_keys(section_name_in_course)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".cke_textarea_inline"))).send_keys('Default auto description LolKek')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tags_menu))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, adult_age_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, intermediate_level_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, main_type_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Говорение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Чтение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Аудирование')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='tag last']//div[@class='box-text option-name black']"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_grammar))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_vocabulary))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_functions))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_other))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'60 минут')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, save_section_button))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='container-box-sizing box-label-input container no-gutters pt-5 pb-5']/div[@class='row no-gutters align-items-center']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='container-box-sizing box-label-input box-label-translation container no-gutters pt-5 pb-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-auto order-2']/div[@class='ui-button-base default']"))).click()
 
-#statistics functions (Ручные задержки нужны, т.к. в противном случае сайт не поспевает за созданием статы к упражнениям)
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Уроки']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-2']//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='modal-window show']//div[@class='design-grid']/div[@class='ui-button-base gray']"))).click()
+    driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_lesson.jpg')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название урока']"))).send_keys("Auto marathon exercises lesson")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".ui-button-loading-base"))).click()
+
 def statistics_manual(): #Статистика с начиление баллов вручную
     points_for_exercise = 5 #Defautl, can change
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Статистика']"))).click()

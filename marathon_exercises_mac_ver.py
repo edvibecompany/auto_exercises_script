@@ -11,6 +11,9 @@ import os
 #login locators and selections
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
+#Update 08/12
+#Пофикшен один локатор
+
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
 login = 'test.qa.shool@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
@@ -68,7 +71,7 @@ if choose == '1':
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='container-box-sizing box-label-input container no-gutters pt-5 pb-5']/div[@class='row no-gutters align-items-center']//div[@class='ui-toggle-switcher rounded']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='container-box-sizing box-label-input box-label-translation container no-gutters pt-5 pb-5']//div[@class='ui-toggle-switcher rounded']"))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher-block']//div[@class='slider']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-auto order-2']/div[@class='ui-button-base default']"))).click()
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Уроки']"))).click()

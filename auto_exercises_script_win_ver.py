@@ -11,12 +11,15 @@ import os
 #login locators and selections
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
+#Update 08/12
+#Убраны теги разделов
+
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
 login = 'test.qa.edvibe@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
 password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
 choose = '1' # '1' - учитель, '2' - школа
-course_name = 'Auto exercises' # Название для курса, при желании можно менять
+course_name = 'Autotest 08/12/23' # Название для курса, при желании можно менять
 section_name_in_course = 'Auto exercises test' # Название для раздела с уроком
 path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../exercises/materials/')) #Путь до папки с материалами
 #Для запуска на win придется добавить двойные слэши к названиям картинок, увы и ах
@@ -128,30 +131,6 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, cre
 driver.find_element(By.XPATH, '//input[@type="file"]').send_keys(f'{path_to_files}\\section_avatar.jpg')
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, save_section_avatar_button))).click()
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_name_field))).send_keys(section_name_in_course)
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tags_menu))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, adult_age_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_age))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, intermediate_level_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_level))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, main_type_tag))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_type))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Говорение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Чтение')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'Аудирование')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='tag last']//div[@class='box-text option-name black']"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_skill))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_grammar))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_vocabulary))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_functions))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, section_field_other))).send_keys('Auto_exercises_test')
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-options active multiselect']//div[@class='design-flex align-center']/div[contains(.,'60 минут')]"))).click()
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, section_tag_time))).click()
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, save_section_button))).click()
 
 #Create new lesson (Тут юзаются в большинстве своем те же локаторы, что и при создании раздела, переименовывать не стала)

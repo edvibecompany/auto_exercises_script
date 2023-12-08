@@ -12,7 +12,7 @@ import os
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 #Update 08/12
-#Пофикшен один локатор
+#Пофикшен один лкатор
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs

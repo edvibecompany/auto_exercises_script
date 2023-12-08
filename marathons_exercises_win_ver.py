@@ -16,9 +16,9 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
-login = 'test.qa.edvibe@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
+login = 'test.qa.shool@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
 password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
-choose = '1' # '1' - учитель, '2' - школа
+choose = '2' # '1' - учитель, '2' - школа
 #marathon_name = 'Marathon auto exercises' # Название для курса, при желании можно менять
 #marathon_name_in_course = 'Auto exercises test' # Название для раздела с уроком
 path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../exercises/materials/')) #Путь до папки с материалами
@@ -63,7 +63,7 @@ if choose == '1':
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-item-btn-title"))).click()
     driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_avatar.jpg')
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ui-button-base default']"))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon exercises")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon 08/12")
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row dropdown-language-container no-gutters']//div[@class='ui-select']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Русский']"))).click()
@@ -86,7 +86,7 @@ else:
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".create-item-btn-title"))).click()
     driver.find_element(By.CSS_SELECTOR, ".ui-input-file").send_keys(f'{path_to_files}\\marathon_avatar.jpg')
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters justify-content-center pt-5']//div[@class='ui-button-base default']"))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon exercises")
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[placeholder='Название']"))).send_keys("Auto marathon 08/12")
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".no-resize"))).send_keys("Auto marathon description")
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row dropdown-language-container no-gutters']//div[@class='ui-select']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Русский']"))).click()
@@ -96,7 +96,7 @@ else:
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='container-box-sizing box-label-input container no-gutters pt-5 pb-5']/div[@class='row no-gutters align-items-center']//div[@class='ui-toggle-switcher rounded']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='container-box-sizing box-label-input box-label-translation container no-gutters pt-5 pb-5']//div[@class='ui-toggle-switcher rounded']"))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher rounded']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='row no-gutters mt-5']/div[@class='row w-100 no-gutters pt-5']//div[@class='ui-toggle-switcher-block']//div[@class='slider']"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-auto order-2']/div[@class='ui-button-base default']"))).click()
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[.='Уроки']"))).click()
@@ -141,7 +141,7 @@ def statistics_answers(): #Статистика по ответам
 #################### Exercises block ####################
 
 #Creating exercises
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
+WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
 
 #P.S. Тут уже перестала выводить отдельные локаторы, т.к. в данном скрипте это просто множит строки)
 #1 Picture

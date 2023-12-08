@@ -16,10 +16,10 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
-login = 'test.qa.edvibe@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
+login = 'test.qa.shool@gmail.com' #test.qa.edvibe@gmail.com / test.qa.shool@gmail.com
 password = 'liveUT00mPE8CB7Z' #liveUT00mPE8CB7Z
-choose = '1' # '1' - учитель, '2' - школа
-course_name = 'Autotest 08/12/23' # Название для курса, при желании можно менять
+choose = '2' # '1' - учитель, '2' - школа
+course_name = 'Auto exercises 08/12/23' # Название для курса, при желании можно менять
 section_name_in_course = 'Auto exercises test' # Название для раздела с уроком
 path_to_files = os.path.abspath(os.path.join(os.path.dirname(__file__), '../exercises/materials/')) #Путь до папки с материалами
 #Для запуска на win придется добавить двойные слэши к названиям картинок, увы и ах
@@ -200,7 +200,7 @@ def statistics_answers(): #Статистика по ответам
 #################### Exercises block ####################
 
 #Creating exercises
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
+WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
 
 #P.S. Тут уже перестала выводить отдельные локаторы, т.к. в данном скрипте это просто множит строки)
 #1 Picture

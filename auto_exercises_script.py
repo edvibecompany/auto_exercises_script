@@ -200,7 +200,7 @@ def statistics_answers(): #Статистика по ответам
 #################### Exercises block ####################
 
 #Creating exercises
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
+WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='no-exercises-plug']/div[@class='ui-button-base default']"))).click()
 
 #P.S. Тут уже перестала выводить отдельные локаторы, т.к. в данном скрипте это просто множит строки)
 #1 Picture

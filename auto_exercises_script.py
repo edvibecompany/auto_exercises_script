@@ -11,7 +11,7 @@ import os
 #login locators and selections
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
-#Update 18/01 stats added
+#Update 18/01 stats added.
 
 ########################### Кастомные данные #########################################
 stage = 'preview' # Значение можно менять на prod/preview/beta/bugs
